@@ -10,7 +10,7 @@ const Search = () => {
       <div className="userChat">
         <img src={profile} alt="" />
         <div className="userChatInfo">
-          <span>Parag</span>
+          <span>Parag hello</span>
         </div>
       </div>
     </div>
