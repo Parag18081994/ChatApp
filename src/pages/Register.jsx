@@ -5,11 +5,13 @@ import { auth, storage ,db} from "../firebase";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { useState } from "react";
 import {doc,setDoc} from "firebase/firestore";
+import { useNavigate } from "react-router-dom";
 
 
 
 const Register = () => {
   const [err, setErr] = useState(false);
+  const navigate=useNavigate();
 
 
   const handleSubmit = async (e) => {
@@ -42,6 +44,11 @@ const Register = () => {
               email,
               photoURL: downloadURL,
             });
+
+            await setDoc(doc(db,"userChats",res.user.uid),{});
+            navigate("/")
+
+            
 
           
           } catch (err) {

@@ -1,7 +1,24 @@
 import React from "react";
-import Add from "../img/addAvatar.png";
+//import Add from "../img/addAvatar.png";
+import { useNavigate, Link } from "react-router-dom";
+import { useState } from "react";
 
 const Login = () => {
+  const [err, setErr] = useState(false);
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const displayName = e.target[0].value;
+    const email = e.target[1].value;
+    const password = e.target[2].value;
+    const file = e.target[3].files[0];
+
+    try {
+    } catch (err) {
+      setErr(true);
+    }
+  };
   return (
     <div className="formContainer">
       <div className="formWrapper">
@@ -18,7 +35,9 @@ const Login = () => {
             placeholder="Enter Password"
             className="userPassword"
           />
-          <button className="btn-form">Login</button>
+          <button className="btn-form" onClick={handleSubmit}>
+            Login
+          </button>
         </form>
         <p>You do have an Account? Register</p>
       </div>
