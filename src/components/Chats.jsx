@@ -1,14 +1,17 @@
 import React from 'react'
+import { useContext } from 'react'
 import profile from "../img/profile.jpg"
+import { AuthContext } from '../context/AuthContext'
 
 const Chats = () => {
+  const {currentUser}=useContext(AuthContext)
   return (
     <div  className='chats'> 
   
   <div className="userChat">
-        <img src={profile} alt="" />
+        <img src={currentUser.photoUrl} alt="" />
         <div className="userChatInfo">
-          <span>Parag</span>
+          <span>{currentUser.displayName}</span>
         </div>
         </div>
 
