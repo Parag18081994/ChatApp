@@ -2,6 +2,9 @@ import React from "react";
 //import Add from "../img/addAvatar.png";
 import { useNavigate, Link } from "react-router-dom";
 import { useState } from "react";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import {auth} from "../firebase"
 
 const Login = () => {
   const [err, setErr] = useState(false);
@@ -9,12 +12,14 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const displayName = e.target[0].value;
-    const email = e.target[1].value;
-    const password = e.target[2].value;
-    const file = e.target[3].files[0];
+    console.log(e.target)
+    const email = e.target.elements.useremail.value;
+    const password = e.target.elements.userpassword.value;
+    
 
     try {
+      await signInWithEmailAndPassword(auth, email, password)
+      navigate("/")
     } catch (err) {
       setErr(true);
     }
@@ -24,22 +29,25 @@ const Login = () => {
       <div className="formWrapper">
         <span className="logo">Parag Chat</span>
         <span className="title">Login</span>
-        <form action="" className="form">
+        <form onSubmit={handleSubmit} className="form">
           <input
             type="text"
             placeholder="Enter Email Adress"
             className="userEmail"
+            name="useremail"
           />
           <input
             type="password"
             placeholder="Enter Password"
             className="userPassword"
+            name="userpassword"
           />
-          <button className="btn-form" onClick={handleSubmit}>
+          <button className="btn-form" >
             Login
           </button>
+          {err && <span>Something went wrong</span>}
         </form>
-        <p>You do have an Account? Register</p>
+        <p>You do have an Account? <Link to="/register">Register</Link></p>
       </div>
     </div>
   );
